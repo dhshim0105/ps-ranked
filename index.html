@@ -11,21 +11,27 @@
         <h1>PS 맞짱</h1>
         <p>
             두 명이 같은 알고리즘 문제를 풀고, 
-            <strong>먼저 정답을 제출한 사람</strong>이 승리합니다. <br>
+            <strong>먼저 정답을 제출한 사람</strong>이 승리합니다.<br>
             실시간 PS 대전을 통해 알고리즘 실력을 키워보세요.
         </p>
         <nav>
-            <a href="#login">로그인</a>
+            <a href="#hero">홈</a>
             <a href="#match">랭크전</a>
-            <a href="#intro">서비스 소개</a>
-            <a href="#ranking">랭킹</a>
-            <a href="#records">경기 기록</a>
-            <a href="#future">향후 기능</a>
+            <a href="#profile">내 프로필</a>
+            <a href="#service-info">서비스 소개</a>
+            <a href="#ranking-preview">랭킹</a>
         </nav>
     </header>
 
     <main>
-        <section id="login">
+        <section id="hero" class="main-section">
+            <h2>공부를 게임처럼 즐기기</h2>
+            <p>1대1 승부에서 승리를 거머쥐세요!</p>
+        </section>
+
+        <hr>
+
+        <section id="login" class="main-section">
             <h2>로그인</h2>
             <form>
                 <div>
@@ -52,16 +58,95 @@
             </form>
         </section>
 
-        <section id="match">
+        <hr>
+
+        <!--id는 개별 요소, class는 그룹 요소, span은 단위 요소-->    
+        <section id="match" class="main-section">
             <h2>랭크전</h2>
 
-            <p>현재 레이팅: 1500</p>
-            <p>현재 티어: 배치 전</p>
+            <div class="player-info">   
+                <p>현재 레이팅: <span class="rating">1500</span></p>
+                <p>현재 티어: <span class="tier">Unranked</span></p>
+            </div> 
 
             <button type="button">매칭 시작</button>
         </section>
 
-        <section id="intro">
+        <hr>
+
+        <section id="ranking-preview" class="main-section">
+            <!-- 랭킹 정보 -->
+            <h2>랭킹 미리보기</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>순위</th>
+                        <th>닉네임</th>
+                        <th>레이팅</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>mastershim</td>
+                        <td>1832</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>algorithm_master</td>
+                        <td>1751</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>fast_solver</td>
+                        <td>1680</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section> 
+
+        <hr>
+        
+        <section id="profile" class="main-section">
+            <h2>내 프로필</h2>
+
+            <div class="profile-info">
+                <p>닉네임: mastershim</p>
+                <p>레이팅: <span class="rating">1500</span></p>
+                <p>티어: <span class="tier">Unranked</span></p>
+                <p>전적: <span class="record">12승 8패</span></p>
+            </div>
+             
+        </section>
+
+        <hr>
+
+        <section id="records" class="main-section">
+            <!-- 경기 기록 -->
+            <h2>최근 경기</h2>
+            <p>최근 진행한 경기 기록입니다.</p>
+            <button id="record-button" type="button">전적 보기</button>
+            <article class="match-record">
+                <h3>최근 경기 1</h3>
+                <p>
+                    상대: algorithmKing<br>
+                    결과: 승리<br>
+                    문제: 두 수의 합
+                </p>
+            </article>
+            <article class="match-record">
+                <h3>최근 경기 2</h3>
+                <p>
+                    상대: mastershim<br>
+                    결과: 패배<br>
+                    문제: 최단 경로
+                </p>
+            </article>
+        </section>
+        
+        <hr>    
+
+        <section id="service-info" class="main-section">
             <!-- 서비스 소개 -->
             <h2>서비스 소개</h2>
             <p>
@@ -103,70 +188,7 @@
 
         <hr>
 
-        <section id="ranking">
-            <!-- 랭킹 정보 -->
-            <h2>현재 랭킹</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>순위</th>
-                        <th>닉네임</th>
-                        <th>레이팅</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>mastershim</td>
-                        <td>1832</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>algorithm_master</td>
-                        <td>1751</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>fast_solver</td>
-                        <td>1680</td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>new_challenger</td>
-                        <td>1542</td>
-                    </tr>
-                </tbody>
-            </table>
-        </section> 
-
-        <hr>
-
-        <section id="records">
-            <!-- 경기 기록 -->
-            <h2>최근 경기</h2>
-            <p>최근 진행한 경기 기록입니다.</p>
-            <button id="record-button" type="button">전적 보기</button>
-            <article>
-                <h3>최근 경기 1</h3>
-                <p>
-                    상대: algorithmKing<br>
-                    결과: 승리<br>
-                    문제: 두 수의 합
-                </p>
-            </article>
-            <article>
-                <h3>최근 경기 2</h3>
-                <p>
-                    상대: mastershim<br>
-                    결과: 패배<br>
-                    문제: 최단 경로
-                </p>
-            </article>
-        </section>
-
-        <hr>
-
-        <section id="future">
+        <section id="future" class="main-section">
             <!-- 향후 개발 계획 -->
             <h2>향후 추가하고 싶은 기능</h2>
             <ul>
@@ -181,7 +203,15 @@
                 세부 규칙과 추가 기능을 개발할 예정입니다.
             </p>
         </section>
+
+        <aside>
+            <h2>알고리즘 팁</h2>
+            <p>최고의 알고리즘 학습법은 직접 해보면서 확인하는 것입니다.</p>
+        </aside>
+
     </main>
+
+
     
     <footer>
         <p>PS 맞짱 개인 프로젝트</p>
