@@ -2,24 +2,26 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <!-- title은 브라우저 탭에 보이는 제목-->
-    <title>PS 맞짱</title> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PS 맞짱</title>
 </head>
 <body>
-    <!-- h1은 페이지의 가장 중요한 큰 제목 -->
     <header>
         <h1>PS 맞짱</h1>
         <p>
-            두 명이 같은 알고리즘 문제를 풀고, 
+            두 명이 같은 알고리즘 문제를 풀고,
             <strong>먼저 정답을 제출한 사람</strong>이 승리합니다.<br>
             실시간 PS 대전을 통해 알고리즘 실력을 키워보세요.
         </p>
+
         <nav>
             <a href="#hero">홈</a>
-            <a href="#match">랭크전</a>
+            <a href="#login">로그인</a>
+            <a href="#signup">회원가입</a>
+            <a href="#match">매칭</a>
+            <a href="#ranking-preview">랭킹</a>
             <a href="#profile">내 프로필</a>
             <a href="#service-info">서비스 소개</a>
-            <a href="#ranking-preview">랭킹</a>
         </nav>
     </header>
 
@@ -29,28 +31,29 @@
             <p>1대1 승부에서 승리를 거머쥐세요!</p>
         </section>
 
-        <hr>
-
         <section id="login" class="main-section">
             <h2>로그인</h2>
+
             <form>
-                <div>
-                    <label for="username">아이디</label>
-                    <input 
-                        id="username" 
+                <div class="form-group">
+                    <label for="login-username">아이디</label>
+                    <input
+                        id="login-username"
                         name="username"
                         type="text"
                         placeholder="아이디를 입력하세요"
+                        required
                     >
                 </div>
 
-                <div>
-                    <label for="password">비밀번호</label>
+                <div class="form-group">
+                    <label for="login-password">비밀번호</label>
                     <input
-                        id="password"
+                        id="login-password"
                         name="password"
                         type="password"
                         placeholder="비밀번호를 입력하세요"
+                        required
                     >
                 </div>
 
@@ -58,26 +61,133 @@
             </form>
         </section>
 
-        <hr>
+        <section id="signup" class="main-section">
+            <h2>회원가입</h2>
 
-        <!--id는 개별 요소, class는 그룹 요소, span은 단위 요소-->    
-        <section id="match" class="main-section">
-            <h2>랭크전</h2>
+            <form>
+                <div class="form-group">
+                    <label for="signup-nickname">닉네임</label>
+                    <input
+                        id="signup-nickname"
+                        name="nickname"
+                        type="text"
+                        placeholder="닉네임을 입력하세요"
+                        required
+                    >
+                </div>
 
-            <div class="player-info">   
-                <p>현재 레이팅: <span class="rating">1500</span></p>
-                <p>현재 티어: <span class="tier">Unranked</span></p>
-            </div> 
+                <div class="form-group">
+                    <label for="signup-email">이메일</label>
+                    <input
+                        id="signup-email"
+                        name="email"
+                        type="email"
+                        placeholder="이메일을 입력하세요"
+                        required
+                    >
+                </div>
 
-            <button type="button">매칭 시작</button>
+                <div class="form-group">
+                    <label for="signup-password">비밀번호</label>
+                    <input
+                        id="signup-password"
+                        name="password"
+                        type="password"
+                        placeholder="비밀번호를 입력하세요"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="signup-password-confirm">비밀번호 확인</label>
+                    <input
+                        id="signup-password-confirm"
+                        name="password-confirm"
+                        type="password"
+                        placeholder="비밀번호를 다시 입력하세요"
+                        required
+                    >
+                </div>
+
+                <button type="submit">회원가입</button>
+            </form>
         </section>
 
-        <hr>
+        <!-- id는 특정 요소 식별, class는 공통 그룹, span은 문장 안 일부를 묶는 태그 -->
+        <section id="match" class="main-section">
+            <h2>게임 매칭</h2>
+
+            <div class="player-info">
+                <p>현재 레이팅: <span class="rating">1500</span></p>
+                <p>현재 티어: <span class="tier">Unranked</span></p>
+            </div>
+
+            <form>
+                <fieldset>
+                    <legend>게임 모드</legend>
+
+                    <input
+                        type="radio"
+                        id="ranked"
+                        name="game-mode"
+                        value="ranked"
+                        checked
+                    >
+                    <label for="ranked">랭크전</label>
+
+                    <input
+                        type="radio"
+                        id="normal"
+                        name="game-mode"
+                        value="normal"
+                    >
+                    <label for="normal">일반전</label>
+                </fieldset>
+
+                <div class="form-group">
+                    <label for="difficulty">문제 난이도</label>
+                    <select id="difficulty" name="difficulty">
+                        <option value="auto" selected>자동 선택</option>
+                        <option value="bronze">Bronze</option>
+                        <option value="silver">Silver</option>
+                        <option value="gold">Gold</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="time-limit">제한 시간(분)</label>
+                    <input
+                        id="time-limit"
+                        name="time-limit"
+                        type="number"
+                        min="1"
+                        max="60"
+                        step="1"
+                        value="10"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <input
+                        type="checkbox"
+                        id="exclude-solved"
+                        name="exclude-solved"
+                        value="yes"
+                        checked
+                    >
+                    <label for="exclude-solved">이미 풀어본 문제 제외</label>
+                </div>
+
+                <button type="submit">매칭 시작</button>
+            </form>
+        </section>
 
         <section id="ranking-preview" class="main-section">
-            <!-- 랭킹 정보 -->
             <h2>랭킹 미리보기</h2>
+
             <table>
+                <caption>현재 상위 랭킹 3명</caption>
                 <thead>
                     <tr>
                         <th>순위</th>
@@ -103,10 +213,8 @@
                     </tr>
                 </tbody>
             </table>
-        </section> 
+        </section>
 
-        <hr>
-        
         <section id="profile" class="main-section">
             <h2>내 프로필</h2>
 
@@ -116,16 +224,13 @@
                 <p>티어: <span class="tier">Unranked</span></p>
                 <p>전적: <span class="record">12승 8패</span></p>
             </div>
-             
         </section>
 
-        <hr>
-
         <section id="records" class="main-section">
-            <!-- 경기 기록 -->
             <h2>최근 경기</h2>
             <p>최근 진행한 경기 기록입니다.</p>
             <button id="record-button" type="button">전적 보기</button>
+
             <article class="match-record">
                 <h3>최근 경기 1</h3>
                 <p>
@@ -134,23 +239,21 @@
                     문제: 두 수의 합
                 </p>
             </article>
+
             <article class="match-record">
                 <h3>최근 경기 2</h3>
                 <p>
-                    상대: mastershim<br>
+                    상대: graph_solver<br>
                     결과: 패배<br>
                     문제: 최단 경로
                 </p>
             </article>
         </section>
-        
-        <hr>    
 
         <section id="service-info" class="main-section">
-            <!-- 서비스 소개 -->
             <h2>서비스 소개</h2>
             <p>
-                비슷한 실력의 사용자와 알고리즘 문제로 대결하는 서비스입니다.<br>
+                비슷한 실력의 사용자와 알고리즘 문제로 대결하는 서비스입니다.
                 경쟁을 통해 주도적으로 학습하고,
                 승리에서 오는 성취감을 느낄 수 있습니다.
             </p>
@@ -158,7 +261,8 @@
             <h3>주요 기능</h3>
             <ul>
                 <li>비슷한 실력의 사용자끼리 실시간 매칭</li>
-                <li><strong>각 사용자의 실력을 고려한 동일 문제 제공</strong></li>
+                <li><strong>두 플레이어의 실력을 고려한 동일 문제 제공</strong></li>
+                <li>검증된 자체 문제은행에서 문제 출제</li>
                 <li>실시간 경기 상태 확인</li>
                 <li>승패에 따른 점수 및 티어 변화</li>
                 <li>경기 기록 확인</li>
@@ -168,34 +272,43 @@
             <h3>게임 진행 방법</h3>
             <ol>
                 <li>비슷한 실력의 매칭 상대를 찾는다.</li>
-                <li>두 사용자가 동일한 알고리즘 문제를 확인한다.</li>
+                <li>두 사용자에게 동일한 알고리즘 문제를 제공한다.</li>
                 <li>상대보다 먼저 정답을 제출한다.</li>
                 <li>경기 결과에 따라 점수와 티어가 변한다.</li>
             </ol>
 
-            <h3>온라인 저지 연동 방식</h3>
+            <h3>문제 제공 방식</h3>
             <p>
-                기존 온라인 저지에서 문제를 가져옵니다.<br>
-                두 사용자에게 동일한 문제를 제공합니다.<br>
-                초기 버전에서는 <strong>먼저 정답을 제출한 사용자를 승자</strong>로 처리합니다.<br>
-                추후에는 오답이나 시간 초과 제출에 페널티를 적용할 예정입니다.
+                AI를 활용해 문제 초안과 테스트 데이터를 만들고,
+                사전에 검증한 문제를 자체 문제은행에 저장합니다.<br>
+                랭크전에서는 두 플레이어의 평균 레이팅을 기준으로 적절한 난이도의 문제를 자동으로 선택하고,
+                일반전에서는 사용자가 원하는 난이도를 직접 선택할 수도 있습니다.
             </p>
-
-            <a href="https://www.acmicpc.net/" target="_blank">
-                백준 온라인 저지 방문
-            </a>
         </section>
 
-        <hr>
+        <section id="suggestion" class="main-section">
+            <h2>건의사항</h2>
+
+            <form>
+                <label for="suggestion-text">건의 내용</label>
+                <textarea
+                    id="suggestion-text"
+                    name="suggestion"
+                    placeholder="서비스에 대한 건의사항을 입력하세요"
+                ></textarea>
+
+                <button type="submit">건의하기</button>
+            </form>
+        </section>
 
         <section id="future" class="main-section">
-            <!-- 향후 개발 계획 -->
             <h2>향후 추가하고 싶은 기능</h2>
             <ul>
                 <li>오답 및 시간·메모리 초과 페널티</li>
                 <li>친선 대회</li>
                 <li>실시간 경기 관전</li>
                 <li><strong>티어 최초 달성 이벤트</strong></li>
+                <li>AI 문제 생성 및 검증 자동화 고도화</li>
             </ul>
 
             <p>
@@ -204,15 +317,12 @@
             </p>
         </section>
 
-        <aside>
+        <aside class="algorithm-tip">
             <h2>알고리즘 팁</h2>
             <p>최고의 알고리즘 학습법은 직접 해보면서 확인하는 것입니다.</p>
         </aside>
-
     </main>
 
-
-    
     <footer>
         <p>PS 맞짱 개인 프로젝트</p>
         <a href="https://github.com/dhshim0105/ps-ranked" target="_blank">
