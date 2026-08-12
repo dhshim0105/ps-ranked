@@ -13,15 +13,11 @@
             <strong>먼저 정답을 제출한 사람</strong>이 승리합니다.<br>
             실시간 PS 대전을 통해 알고리즘 실력을 키워보세요.
         </p>
-
         <nav>
-            <a href="#hero">홈</a>
-            <a href="#login">로그인</a>
-            <a href="#signup">회원가입</a>
-            <a href="#match">매칭</a>
-            <a href="#ranking-preview">랭킹</a>
-            <a href="#profile">내 프로필</a>
-            <a href="#service-info">서비스 소개</a>
+            <a href="index.html">메인</a>
+            <a href="match.html">매칭</a>
+            <a href="ranking.html">랭킹</a>
+            <a href="profile.html">프로필</a>
         </nav>
     </header>
 
@@ -29,6 +25,7 @@
         <section id="hero" class="main-section">
             <h2>공부를 게임처럼 즐기기</h2>
             <p>1대1 승부에서 승리를 거머쥐세요!</p>
+            <a href="match.html">랭크전 시작</a>
         </section>
 
         <section id="login" class="main-section">
@@ -113,74 +110,14 @@
             </form>
         </section>
 
-        <!-- id는 특정 요소 식별, class는 공통 그룹, span은 문장 안 일부를 묶는 태그 -->
-        <section id="match" class="main-section">
-            <h2>게임 매칭</h2>
+        <section id="my-summary" class="main-section">
+           <h2>내 프로필</h2>
 
-            <div class="player-info">
-                <p>현재 레이팅: <span class="rating">1500</span></p>
-                <p>현재 티어: <span class="tier">Unranked</span></p>
+            <div class="profile-info">
+                <p>닉네임: mastershim</p>
+                <p>티어: <span class="tier">Unranked</span></p>
             </div>
-
-            <form>
-                <fieldset>
-                    <legend>게임 모드</legend>
-
-                    <input
-                        type="radio"
-                        id="ranked"
-                        name="game-mode"
-                        value="ranked"
-                        checked
-                    >
-                    <label for="ranked">랭크전</label>
-
-                    <input
-                        type="radio"
-                        id="normal"
-                        name="game-mode"
-                        value="normal"
-                    >
-                    <label for="normal">일반전</label>
-                </fieldset>
-
-                <div class="form-group">
-                    <label for="difficulty">문제 난이도</label>
-                    <select id="difficulty" name="difficulty">
-                        <option value="auto" selected>자동 선택</option>
-                        <option value="bronze">Bronze</option>
-                        <option value="silver">Silver</option>
-                        <option value="gold">Gold</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="time-limit">제한 시간(분)</label>
-                    <input
-                        id="time-limit"
-                        name="time-limit"
-                        type="number"
-                        min="1"
-                        max="60"
-                        step="1"
-                        value="10"
-                        required
-                    >
-                </div>
-
-                <div class="form-group">
-                    <input
-                        type="checkbox"
-                        id="exclude-solved"
-                        name="exclude-solved"
-                        value="yes"
-                        checked
-                    >
-                    <label for="exclude-solved">이미 풀어본 문제 제외</label>
-                </div>
-
-                <button type="submit">매칭 시작</button>
-            </form>
+            <a href="profile.html">내 프로필 보기</a>
         </section>
 
         <section id="ranking-preview" class="main-section">
@@ -211,43 +148,19 @@
                         <td>fast_solver</td>
                         <td>1680</td>
                     </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>fast_solver2</td>
+                        <td>1680</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>fast_solver3</td>
+                        <td>1680</td>
+                    </tr>
                 </tbody>
             </table>
-        </section>
-
-        <section id="profile" class="main-section">
-            <h2>내 프로필</h2>
-
-            <div class="profile-info">
-                <p>닉네임: mastershim</p>
-                <p>레이팅: <span class="rating">1500</span></p>
-                <p>티어: <span class="tier">Unranked</span></p>
-                <p>전적: <span class="record">12승 8패</span></p>
-            </div>
-        </section>
-
-        <section id="records" class="main-section">
-            <h2>최근 경기</h2>
-            <p>최근 진행한 경기 기록입니다.</p>
-            <button id="record-button" type="button">전적 보기</button>
-
-            <article class="match-record">
-                <h3>최근 경기 1</h3>
-                <p>
-                    상대: algorithmKing<br>
-                    결과: 승리<br>
-                    문제: 두 수의 합
-                </p>
-            </article>
-
-            <article class="match-record">
-                <h3>최근 경기 2</h3>
-                <p>
-                    상대: graph_solver<br>
-                    결과: 패배<br>
-                    문제: 최단 경로
-                </p>
-            </article>
+            <a href="ranking.html">전체 랭킹 보기</a>
         </section>
 
         <section id="service-info" class="main-section">

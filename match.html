@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>매칭 | PS 맞짱</title>
+</head>
+<body>
+    <header>
+        <h1>PS 맞짱</h1>
+        <nav>
+            <a href="index.html">메인</a>
+            <a href="match.html">매칭</a>
+            <a href="ranking.html">랭킹</a>
+            <a href="profile.html">프로필</a>
+        </nav>
+    </header>
+
+    <main>
+        <!-- id는 특정 요소 식별, class는 공통 그룹, span은 문장 안 일부를 묶는 태그 -->
+        <section id="match" class="main-section">
+            <h2>게임 매칭</h2>
+
+            <div class="player-info">
+                <p>현재 레이팅: <span class="rating">1500</span></p>
+                <p>현재 티어: <span class="tier">Unranked</span></p>
+            </div>
+
+            <form>
+                <fieldset>
+                    <legend>게임 모드</legend>
+
+                    <input
+                        type="radio"
+                        id="ranked"
+                        name="game-mode"
+                        value="ranked"
+                        checked
+                    >
+                    <label for="ranked">랭크전</label>
+
+                    <input
+                        type="radio"
+                        id="normal"
+                        name="game-mode"
+                        value="normal"
+                    >
+                    <label for="normal">일반전</label>
+                </fieldset>
+
+                <div class="form-group">
+                    <label for="difficulty">문제 난이도</label>
+                    <select id="difficulty" name="difficulty">
+                        <option value="auto" selected>자동 선택</option>
+                        <option value="bronze">Bronze</option>
+                        <option value="silver">Silver</option>
+                        <option value="gold">Gold</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="time-limit">제한 시간(분)</label>
+                    <input
+                        id="time-limit"
+                        name="time-limit"
+                        type="number"
+                        min="1"
+                        max="60"
+                        step="1"
+                        value="10"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <input
+                        type="checkbox"
+                        id="exclude-solved"
+                        name="exclude-solved"
+                        value="yes"
+                        checked
+                    >
+                    <label for="exclude-solved">이미 풀어본 문제 제외</label>
+                </div>
+
+                <button type="submit">매칭 시작</button>
+            </form>
+        </section>
+
+    </main>
+</body>     
+</html>   
