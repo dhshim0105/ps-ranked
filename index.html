@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PS 맞짱</title>
+
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <header>
@@ -25,7 +27,7 @@
         <section id="hero" class="main-section">
             <h2>공부를 게임처럼 즐기기</h2>
             <p>1대1 승부에서 승리를 거머쥐세요!</p>
-            <a href="match.html">랭크전 시작</a>
+            <a href="match.html" class="hero-button">랭크전 시작</a>
         </section>
 
         <section id="login" class="main-section">
@@ -204,12 +206,13 @@
 
             <form>
                 <label for="suggestion-text">건의 내용</label>
+                <br>
                 <textarea
                     id="suggestion-text"
                     name="suggestion"
                     placeholder="서비스에 대한 건의사항을 입력하세요"
                 ></textarea>
-
+                <br>
                 <button type="submit">건의하기</button>
             </form>
         </section>

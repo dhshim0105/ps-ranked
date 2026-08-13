@@ -1,0 +1,110 @@
+/*
+tag
+.class
+#id
+*/
+
+body {
+    background-color: #faf9f6;
+    color: #222;
+    font-family: Arial, sans-serif;
+    margin: 0;
+}
+
+header {
+    background-color: #222;
+    color: white;
+    /*padding: 요소 안쪽 여백*/
+    padding: 20px;
+}
+
+main {
+    /*화면 너비의 90% 사용*/
+    width: 90%;
+    max-width: 1000px;
+    /*가운데로 자동 맞춤*/
+    margin: 0 auto;
+}
+
+.main-section {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+
+    padding: 30px;
+    margin: 15px 0;
+}
+
+#hero {
+    background-color: rgb(220, 250, 250);
+    text-align: center;
+}
+
+#hero h2 {
+    font-size: 30px;
+}
+
+.hero-button {
+    /*a(링크)를 button처럼 꾸미기 위한 줄*/
+    display: inline-block;
+
+    background-color: rgb(123, 236, 240);
+    color: black;
+    text-decoration: none;
+
+    font-weight: bold;
+
+    border: 1px solid black;
+    border-radius: 8px;
+    /*위 아래 12px, 왼쪽 오른쪽 24px*/
+    padding: 12px 24px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    /*margin: 요소 바깥쪽 여백*/
+    margin-right: 15px;
+}
+
+h1 {
+    color: white;
+    font-size: 32px;
+    text-align: center;
+}
+
+.tier {
+    font-weight: bold;
+}
+
+#match-button {
+    background-color: rgb(123, 236, 240);
+    color: black;
+
+    width: 200px;
+    height: 50px;
+    /*border는 테두리, solid는 실선, border-radius는 모서리 곡률*/
+    border: 1px solid black;
+    border-radius: 8px;
+
+    font-size: 18px;
+    font-weight: bold;
+}
+
+table {
+    width: 100%;
+    border: 1px solid #ddd;
+    /*겹치는 테두리를 하나로 합치기*/
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 10px 15px;
+}
+
+th {
+    background-color: #222;
+    color: white;
+    font-weight: bold;
+}
