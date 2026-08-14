@@ -1,39 +1,74 @@
 /*
-tag
-.class
-#id
+선택자
+tag    → 태그 선택자
+.class → class 선택자
+#id    → id 선택자
 */
 
+
+/* ===== 기본 설정 ===== */
+
+* {
+    box-sizing: border-box;
+}
+
 body {
+    margin: 0;
+
     background-color: #faf9f6;
     color: #222;
     font-family: Arial, sans-serif;
-    margin: 0;
 }
+
+
+/* ===== Header / Navigation ===== */
 
 header {
     background-color: #222;
     color: white;
-    /*padding: 요소 안쪽 여백*/
+
+    /* padding: 요소 안쪽 여백 */
     padding: 20px;
 }
 
+header h1 {
+    color: white;
+    font-size: 32px;
+    text-align: center;
+}
+
+header nav a {
+    color: white;
+    text-decoration: none;
+
+    /* margin: 요소 바깥쪽 여백 */
+    margin-right: 15px;
+}
+
+
+/* ===== 공통 Layout ===== */
+
 main {
-    /*화면 너비의 90% 사용*/
+    /* 화면 너비의 90% 사용 */
     width: 90%;
     max-width: 1000px;
-    /*가운데로 자동 맞춤*/
+
+    /* 좌우 여백을 자동 계산해서 가운데 정렬 */
     margin: 0 auto;
 }
 
 .main-section {
     background-color: white;
+
     border: 1px solid #ddd;
     border-radius: 8px;
 
     padding: 30px;
     margin: 15px 0;
 }
+
+
+/* ===== Hero ===== */
 
 #hero {
     background-color: rgb(220, 250, 250);
@@ -44,61 +79,75 @@ main {
     font-size: 30px;
 }
 
-.hero-button {
-    /*a(링크)를 button처럼 꾸미기 위한 줄*/
-    display: inline-block;
 
+/* ===== 공통 Button 스타일 ===== */
+
+.hero-button,
+.match-button {
     background-color: rgb(123, 236, 240);
     color: black;
-    text-decoration: none;
-
-    font-weight: bold;
 
     border: 1px solid black;
     border-radius: 8px;
-    /*위 아래 12px, 왼쪽 오른쪽 24px*/
+
+    font-weight: bold;
+}
+
+.hero-button {
+    /* a 태그를 버튼처럼 다루기 쉽게 변경 */
+    display: inline-block;
+
+    text-decoration: none;
+
+    /* 위아래 12px, 좌우 24px */
     padding: 12px 24px;
 }
 
-nav a {
-    color: white;
-    text-decoration: none;
-    /*margin: 요소 바깥쪽 여백*/
-    margin-right: 15px;
+.match-button {
+    width: 200px;
+    height: 50px;
+
+    font-size: 18px;
 }
 
-h1 {
-    color: white;
-    font-size: 32px;
-    text-align: center;
-}
+
+/* ===== 데이터 표현 ===== */
 
 .tier {
     font-weight: bold;
 }
 
-#match-button {
-    background-color: rgb(123, 236, 240);
-    color: black;
 
-    width: 200px;
-    height: 50px;
-    /*border는 테두리, solid는 실선, border-radius는 모서리 곡률*/
+/* ===== Cards ===== */
+
+.player-card,
+.ranking-card {
+    margin: 20px;
+
     border: 1px solid black;
-    border-radius: 8px;
-
-    font-size: 18px;
-    font-weight: bold;
+    border-radius: 10px;
 }
+
+.player-card,
+.ranking-card {
+    width: 300px;
+    padding: 20px;
+}
+
+
+/* ===== Ranking Table ===== */
 
 table {
     width: 100%;
+
     border: 1px solid #ddd;
-    /*겹치는 테두리를 하나로 합치기*/
+
+    /* 겹치는 테두리를 하나로 합치기 */
     border-collapse: collapse;
 }
 
-th, td {
+th,
+td {
     border: 1px solid #ddd;
     padding: 10px 15px;
 }
