@@ -9,18 +9,23 @@
 </head>
 <body>
     <header>
-        <h1>PS 맞짱</h1>
+
+        <div class="header-top">
+            <h1>PS 맞짱</h1>
+            <nav>
+                <a href="index.html">메인</a>
+                <a href="match.html">매칭</a>
+                <a href="ranking.html">랭킹</a>
+                <a href="profile.html">프로필</a>
+            </nav>
+        </div>
+
         <p>
             두 명이 같은 알고리즘 문제를 풀고,
             <strong>먼저 정답을 제출한 사람</strong>이 승리합니다.<br>
             실시간 PS 대전을 통해 알고리즘 실력을 키워보세요.
         </p>
-        <nav>
-            <a href="index.html">메인</a>
-            <a href="match.html">매칭</a>
-            <a href="ranking.html">랭킹</a>
-            <a href="profile.html">프로필</a>
-        </nav>
+        
     </header>
 
     <main>
@@ -112,25 +117,27 @@
             </form>
         </section>
 
-        <section id="my-summary" class="main-section">
-           <h2>내 프로필</h2>
+        <div class="dashboard-cards">
+            <section id="my-summary" class="main-section player-card">
+            <h2>내 프로필</h2>
 
-            <div class="profile-info">
-                <p>닉네임: mastershim</p>
-                <p>티어: <span class="tier">Unranked</span></p>
-            </div>
-            <a href="profile.html">내 프로필 보기</a>
-        </section>
+                <div class="profile-info">
+                    <p>닉네임: mastershim</p>
+                    <p>티어: <span class="tier">Unranked</span></p>
+                </div>
+                <a href="profile.html">내 프로필 보기</a>
+            </section>
 
-        <section class="ranking-card">
-            <h2>현재 랭킹</h2>
-            <ol>
-                <li>mastershim 1832</li>
-                <li>algorithm_master 1751</li>
-                <li>fast_solver 1680</li>
-            </ol>
-            <a href="ranking.html">전체 랭킹 보기</a>
-        </section>
+            <section class="main-section ranking-card">
+                <h2>현재 랭킹</h2>
+                <ol>
+                    <li>mastershim 1832</li>
+                    <li>algorithm_master 1751</li>
+                    <li>fast_solver 1680</li>
+                </ol>
+                <a href="ranking.html">전체 랭킹 보기</a>
+            </section>
+        </div>
 
         <section id="service-info" class="main-section">
             <h2>서비스 소개</h2>
