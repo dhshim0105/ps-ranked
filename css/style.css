@@ -52,6 +52,12 @@ header nav {
 header nav a {
     color: white;
     text-decoration: none;
+
+    transition: 0.2s;
+}
+
+header nav a:hover {
+    color: rgb(123, 236, 240);
 }
 
 
@@ -93,12 +99,29 @@ main {
 /* ===== Hero ===== */
 
 #hero {
+    min-height: 400px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
     background-color: rgb(220, 250, 250);
     text-align: center;
 }
 
 #hero h2 {
     font-size: 30px;
+}
+
+#hero p {
+    margin:4px 0;
+    /*한 줄의 높이*/
+    line-height: 1.6;
+}
+
+#hero .hero-button {
+    margin-top: 20px;
 }
 
 
@@ -123,6 +146,14 @@ main {
 
     /* 위아래 12px, 좌우 24px */
     padding: 12px 24px;
+
+    /*변화 시간, 서서히 변하는 효과*/
+    transition: 0.2s;
+}
+
+.hero-button:hover {
+    background-color: rgb(90, 210, 215);
+    transform: translateY(-2px);
 }
 
 .match-button {
@@ -144,15 +175,34 @@ main {
 
 .player-card,
 .ranking-card {
-    width: 300px;
+    /* 같은 Flex Container 안에서 남는 공간을 같은 비율로 나눠 가짐 */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 
     padding: 20px;
-    margin: 20px;
 
     border: 1px solid black;
     border-radius: 10px;
 }
 
+.player-card a,
+.ranking-card a {
+    display: inline-block;
+    margin-top: 10px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.player-card h2,
+.ranking-card h2 {
+    margin-top: 0;
+}
+
+.dashboard-cards .player-card,
+.dashboard-cards .ranking-card {
+    flex: 1;
+}
 
 /* ===== Game / Players ===== */
 
@@ -225,4 +275,24 @@ th {
     background-color: #222;
     color: white;
     font-weight: bold;
+}
+
+/* ===== match record ====== */
+.match-record {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 12px 0;
+    border-bottom: 1px solid;
+}
+
+.win {
+    font-weight: bold;
+    color: green;
+}
+
+.loss {
+    font-weight: bold;
+    color: red;
 }
