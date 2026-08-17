@@ -82,6 +82,13 @@ main {
     margin: 15px 0;
 }
 
+.page-title {
+    font-size: 28px;
+
+    margin-top: 0;
+    margin-bottom: 24px;
+}
+
 
 /* ===== Dashboard Layout ===== */
 
@@ -90,9 +97,9 @@ main {
     display: flex;
     justify-content: space-between;
     align-items: stretch;
+    flex-wrap: wrap;
 
     gap: 20px;
-    flex-wrap: wrap;
 }
 
 
@@ -105,7 +112,7 @@ main {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    
+
     background-color: rgb(220, 250, 250);
     text-align: center;
 }
@@ -115,8 +122,9 @@ main {
 }
 
 #hero p {
-    margin:4px 0;
-    /*한 줄의 높이*/
+    margin: 4px 0;
+
+    /* 한 줄의 높이 */
     line-height: 1.6;
 }
 
@@ -127,8 +135,7 @@ main {
 
 /* ===== 공통 Button 스타일 ===== */
 
-.hero-button,
-.match-button {
+.button {
     background-color: rgb(123, 236, 240);
     color: black;
 
@@ -136,6 +143,16 @@ main {
     border-radius: 8px;
 
     font-weight: bold;
+
+    /* 상태 변화가 부드럽게 진행됨 */
+    transition: 0.2s;
+}
+
+.button:hover {
+    background-color: rgb(90, 210, 215);
+
+    /* 마우스를 올리면 살짝 위로 이동 */
+    transform: translateY(-2px);
 }
 
 .hero-button {
@@ -146,14 +163,6 @@ main {
 
     /* 위아래 12px, 좌우 24px */
     padding: 12px 24px;
-
-    /*변화 시간, 서서히 변하는 효과*/
-    transition: 0.2s;
-}
-
-.hero-button:hover {
-    background-color: rgb(90, 210, 215);
-    transform: translateY(-2px);
 }
 
 .match-button {
@@ -173,9 +182,16 @@ main {
 
 /* ===== Cards ===== */
 
+/* 여러 종류의 카드에서 재사용하는 공통 외형 */
+.card {
+    background-color: white;
+
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
 .player-card,
 .ranking-card {
-    /* 같은 Flex Container 안에서 남는 공간을 같은 비율로 나눠 가짐 */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -189,7 +205,9 @@ main {
 .player-card a,
 .ranking-card a {
     display: inline-block;
+
     margin-top: 10px;
+
     text-decoration: none;
     font-weight: bold;
 }
@@ -199,10 +217,12 @@ main {
     margin-top: 0;
 }
 
+/* dashboard 안의 카드일 때만 남는 공간을 같은 비율로 나눠 가짐 */
 .dashboard-cards .player-card,
 .dashboard-cards .ranking-card {
     flex: 1;
 }
+
 
 /* ===== Game / Players ===== */
 
@@ -274,25 +294,54 @@ td {
 th {
     background-color: #222;
     color: white;
+
     font-weight: bold;
 }
 
-/* ===== match record ====== */
+
+/* ===== Match Record ===== */
+
 .match-record {
     display: flex;
     justify-content: space-between;
     align-items: center;
 
     padding: 12px 0;
-    border-bottom: 1px solid;
+
+    border-bottom: 1px solid #ddd;
 }
 
 .win {
-    font-weight: bold;
     color: green;
+    font-weight: bold;
 }
 
 .loss {
-    font-weight: bold;
     color: red;
+    font-weight: bold;
+}
+
+
+/* ===== Profile / Stats ===== */
+
+.profile-stats {
+    display: grid;
+
+    /*
+    1fr짜리 열을 2개 생성
+    → 프로필 통계를 2 × 2 형태로 배치
+    */
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 20px;
+}
+
+.stat-card {
+    padding: 20px;
+
+    text-align: center;
+}
+
+.stat-card h3 {
+    margin-top: 0;
 }
