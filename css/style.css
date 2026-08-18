@@ -106,7 +106,7 @@ main {
 /* ===== Hero ===== */
 
 #hero {
-    min-height: 400px;
+    min-height: 50vh;
 
     display: flex;
     flex-direction: column;
@@ -221,6 +221,7 @@ main {
 .dashboard-cards .player-card,
 .dashboard-cards .ranking-card {
     flex: 1;
+    min-width: 300px;
 }
 
 
@@ -259,6 +260,7 @@ main {
 
 .player {
     width: 250px;
+    max-width: 100%;
 
     padding: 20px;
 
@@ -305,6 +307,7 @@ th {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
 
     padding: 12px 0;
 
@@ -344,4 +347,45 @@ th {
 
 .stat-card h3 {
     margin-top: 0;
+}
+
+/*
+media: 화면이 특정 조건일 때 하단 css 적용
+화면 너비 > 768px
+→ 기존 CSS 사용
+화면 너비 ≤ 768px
+→ 하단 css 사용
+*/
+
+/* ===== Responsive ===== */
+
+@media (max-width: 768px) {
+
+    /* Header */
+    .header-top {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    /* Dashboard */
+    .dashboard-cards {
+        flex-direction: column;
+    }
+
+    .dashboard-cards .player-card,
+    .dashboard-cards .ranking-card {
+        min-width: 0;
+        width: 100%;
+    }
+
+    /* Game */
+    .players {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    /* Profile */
+    .profile-stats {
+        grid-template-columns: 1fr;
+    }
 }
