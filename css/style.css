@@ -12,11 +12,23 @@ tag    → 태그 선택자
     box-sizing: border-box;
 }
 
+:root {
+    --primary-color : rgb(123, 236, 240);
+    --primary-hover-color: rgb(90, 210, 215);
+
+    --background-color: #faf9f6;
+    --surface-color: white;
+
+    --text-color: #222;
+    --border-color: #ddd;
+    
+}
+
 body {
     margin: 0;
 
-    background-color: #faf9f6;
-    color: #222;
+    background-color: var(--background-color);
+    color: var(--text-color);
     font-family: Arial, sans-serif;
 }
 
@@ -25,10 +37,14 @@ body {
 
 header {
     background-color: #222;
-    color: white;
+    color: var(--surface-color);
 
     /* 요소 안쪽 여백 */
     padding: 20px;
+    position: sticky;
+    top: 0;
+    /*겹쳤을 때 보이는 우선 순위, 큰 게 우선*/
+    z-index: 100;
 }
 
 /* 로고와 네비게이션을 양쪽으로 배치 */
@@ -39,7 +55,7 @@ header {
 }
 
 header h1 {
-    color: white;
+    color: var(--surface-color);
     font-size: 32px;
 }
 
@@ -50,14 +66,14 @@ header nav {
 }
 
 header nav a {
-    color: white;
+    color: var(--surface-color);
     text-decoration: none;
 
     transition: 0.2s;
 }
 
 header nav a:hover {
-    color: rgb(123, 236, 240);
+    color: var(--primary-color);
 }
 
 
@@ -73,9 +89,9 @@ main {
 }
 
 .main-section {
-    background-color: white;
+    background-color: var(--surface-color);
 
-    border: 1px solid #ddd;
+    border: 1px solid var(--border-color);
     border-radius: 8px;
 
     padding: 30px;
@@ -136,7 +152,7 @@ main {
 /* ===== 공통 Button 스타일 ===== */
 
 .button {
-    background-color: rgb(123, 236, 240);
+    background-color: var(--primary-color);
     color: black;
 
     border: 1px solid black;
@@ -184,9 +200,9 @@ main {
 
 /* 여러 종류의 카드에서 재사용하는 공통 외형 */
 .card {
-    background-color: white;
+    background-color: var(--surface-color);
 
-    border: 1px solid #ddd;
+    border: 1px solid var(--border-color);
     border-radius: 8px;
 }
 
@@ -264,7 +280,7 @@ main {
 
     padding: 20px;
 
-    border: 1px solid #ddd;
+    border: 1px solid var(--border-color);
     border-radius: 10px;
 
     text-align: center;
@@ -281,7 +297,7 @@ main {
 table {
     width: 100%;
 
-    border: 1px solid #ddd;
+    border: 1px solid var(--border-color);
 
     /* 겹치는 테두리를 하나로 합치기 */
     border-collapse: collapse;
@@ -289,13 +305,13 @@ table {
 
 th,
 td {
-    border: 1px solid #ddd;
+    border: 1px solid var(--border-color);
     padding: 10px 15px;
 }
 
 th {
-    background-color: #222;
-    color: white;
+    background-color: var(--text-color);
+    color: var(--surface-color);
 
     font-weight: bold;
 }
@@ -311,7 +327,7 @@ th {
 
     padding: 12px 0;
 
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid var(--border-color);
 }
 
 .win {
@@ -340,13 +356,50 @@ th {
 }
 
 .stat-card {
+    position:relative;
     padding: 20px;
-
     text-align: center;
 }
 
+
 .stat-card h3 {
     margin-top: 0;
+}
+
+/* ======= submit-record ======== */
+
+.submit-list {
+    display: grid;
+    grid-template-columns: auto auto;
+    
+    gap: 10px 20px;
+}
+
+
+
+/* ======= status ======== */
+
+.status {
+    display : inline-block;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-weight: bold;
+}
+
+.status-wa {
+    color: red;
+}
+
+.status-tle {
+    color: rgb(165, 165, 7);
+}
+
+.status-ac {
+    color: green;
+}
+
+.status-playing {
+    background-color: var(--primary-color);
 }
 
 /*
