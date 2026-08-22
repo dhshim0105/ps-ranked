@@ -1,40 +1,19 @@
-const players = [
-    {
-        nickname: "mastershim",
-        rating: 1750
-    },
-    {
-        nickname: "algorithmKing",
-        rating: 1900
-    },
-    {
-        nickname: "PSGod",
-        rating: 1600
-    }
-];
+const matchButton = document.querySelector("#match-button");
+const matchStatus = document.querySelector("#match-status");
 
-players.forEach(function (player, index) {
-    console.log(`${index+1}위: ${player.nickname} / 레이팅: ${player.rating}`);
+let isMatching = false;
+
+matchButton.addEventListener("click", function () {
+    if (isMatching === false) {
+        matchStatus.textContent = "상대방을 찾고 있습니다...";
+        matchButton.textContent = "매칭 취소";
+        matchStatus.classList.add("match-status-searching");
+        isMatching = true;
+    } 
+    else {
+        matchStatus.textContent = "매칭을 시작해주세요.";
+        matchButton.textContent = "랭크전 시작";
+        matchStatus.classList.remove("match-status-searching");
+        isMatching = false;
+    }
 });
-
-const match = {
-    status: "PLAYING",
-    playerA: {
-        nickname: "mastershim",
-        rating: 1750
-    },
-    playerB: {
-        nickname: "algorithmKing",
-        rating: 1900
-    },
-    problem: {
-        title: "최단 경로",
-        difficulty: "Gold",
-        timeLimit: 30
-    }
-};
-
-console.log(`${match.playerA.nickname} VS ${match.playerB.nickname}`);
-console.log(`문제: ${match.problem.title}`);
-console.log(`난이도: ${match.problem.difficulty}`);
-console.log(`제한 시간: ${match.problem.timeLimit}분`);

@@ -55,11 +55,12 @@
                 <div class="form-group">
                     <label for="difficulty">문제 난이도</label>
                     <select id="difficulty" name="difficulty">
-                        <option value="auto" selected>자동 선택</option>
-                        <option value="bronze">Bronze</option>
-                        <option value="silver">Silver</option>
-                        <option value="gold">Gold</option>
+                        <option value="자동 선택" selected>자동 선택</option>
+                        <option value="Bronze">Bronze</option>
+                        <option value="Silver">Silver</option>
+                        <option value="Gold">Gold</option>
                     </select>
+                    <p id="difficulty-message">선택 난이도: 자동 선택</p>
                 </div>
 
                 <div class="form-group">
@@ -87,9 +88,11 @@
                     <label for="exclude-solved">이미 풀어본 문제 제외</label>
                 </div>
 
-                <button type="submit" class="match-button button">매칭 시작</button>
+                <button type="button" id="match-button" class="match-button button">랭크전 시작</button>
+                <p id="match-status">매칭을 시작해주세요.</p>
             </form>
         </section>
     </main>
+    <script src="js/script.js"></script>
 </body>     
 </html>   

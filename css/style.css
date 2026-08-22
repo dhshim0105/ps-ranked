@@ -402,6 +402,11 @@ th {
     background-color: var(--primary-color);
 }
 
+.match-status-searching {
+    color: var(--primary-hover-color);
+    font-weight: bold;
+}
+
 /*
 media: 화면이 특정 조건일 때 하단 css 적용
 화면 너비 > 768px
