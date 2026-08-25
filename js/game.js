@@ -28,3 +28,40 @@ submitAnswer.addEventListener("click", function () {
     }, 1500);
 });
 
+const submissions = [
+    {
+        time: "00:31",
+        result: "WA"
+    },
+    {
+        time: "00:54",
+        result: "TLE"
+    },
+    {
+        time: "01:28",
+        result: "AC"
+    }
+];
+
+const submissionList = document.querySelector("#submission-list");
+
+submissions.forEach(function (submission, index) {
+    const submissionDiv = document.createElement("div");
+    submissionDiv.className = "submission";
+    const statusResult = `status-${submission.result.toLowerCase()}`;
+
+    submissionDiv.innerHTML = `
+        <span>${index+1}차 제출</span>
+        <span>${submission.time}</span>
+        <span class="status ${statusResult}">${submission.result}</span>
+    `;
+
+    submissionList.append(submissionDiv);
+});
+
+submissionList.addEventListener("click", function (event) {
+    if (event.target.classList.contains("status")) {
+        console.log(event.target.textContent);
+    }
+    console.log(event.target);
+});

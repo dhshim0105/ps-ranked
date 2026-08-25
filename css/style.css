@@ -320,14 +320,22 @@ th {
 /* ===== Match Record ===== */
 
 .match-record {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
     align-items: center;
     flex-wrap: wrap;
 
     padding: 12px 0;
 
     border-bottom: 1px solid var(--border-color);
+}
+
+.match-record span:nth-child(2) {
+    text-align: center;
+}
+
+.match-record span:nth-child(3) {
+    text-align: right;
 }
 
 .win {
@@ -366,13 +374,21 @@ th {
     margin-top: 0;
 }
 
-/* ======= submit-record ======== */
+/* ======= submission-record ======== */
 
-.submit-list {
+.submission {
     display: grid;
-    grid-template-columns: auto auto;
+    grid-template-columns: 1fr 1fr 1fr;
     
     gap: 10px 20px;
+}
+
+.submission span:nth-child(2) {
+    text-align: center;
+}
+
+.submission span:nth-child(3) {
+    text-align: right;
 }
 
 

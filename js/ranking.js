@@ -1,3 +1,4 @@
+/*
 const players = [ 
     {
         id: 1,
@@ -126,3 +127,36 @@ const matchablePlayers = players.filter(function (player) {
 });
 
 console.log(matchablePlayers);
+*/
+
+const rankings = [
+    { id: 1, nickname: "DFS_Master", rating: 1920 },
+    { id: 2, nickname: "GraphKing", rating: 1863 },
+    { id: 3, nickname: "DP_God", rating: 1812 },
+    { id: 4, nickname: "BFS_King", rating: 1750 },
+    { id: 5, nickname: "GreedyCat", rating: 1690 }
+];
+
+
+const rankingBody = document.querySelector("#ranking-body");
+
+rankings.forEach(function (player, index) {
+    
+
+    const row = document.createElement("tr");
+    row.className = "ranking-row";
+    row.dataset.playerId = player.id;
+
+    if (index < 3) { row.classList.add("top-rank"); };
+
+    row.innerHTML = `
+        <td>${index+1}</td>
+        <td>${player.nickname}</td>
+        <td>${player.rating}</td>
+
+    `;
+    rankingBody.append(row);
+});
+
+//const rows = document.querySelectorAll(".ranking-row");
+//rows[4].remove();
