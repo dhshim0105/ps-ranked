@@ -1,21 +1,26 @@
+// ===== session storage =====
+
+const savedMatch = JSON.parse(sessionStorage.getItem("match"));
+const savedPlayer = JSON.parse(localStorage.getItem("player"));
+
+
+
 // ===== State / Data =====
-/*
+
 const gameState = {
-    player: null,
-    opponent: null,
+    player: savedPlayer,
+    opponent: savedMatch.opponent,
+
     problem: null,
-
     elapsedTime: 0,
-
     submissions: [],
-
     status: "playing",
     message: "문제를 풀어주세요.",
-
     winner: null
 
 };
-*/
+
+/*
 
 const gameState = {
     player: {
@@ -34,7 +39,7 @@ const gameState = {
     message: "문제를 풀어주세요.",
     winner: null
 };
-
+*/
 
 
 // ===== DOM =====
@@ -43,6 +48,11 @@ const gameTimer = document.querySelector("#game-timer");
 const submitButton = document.querySelector("#submit-answer");
 const gameStatus = document.querySelector("#game-status");
 const submissionList = document.querySelector("#submission-list");
+
+const playerName = document.querySelector("#player-name");
+const playerRating = document.querySelector("#player-rating");
+const opponentName = document.querySelector("#opponent-name");
+const opponentRating = document.querySelector("#opponent-rating");
 
 
 
@@ -124,8 +134,20 @@ function judgeSubmission() {
 
 function renderGame() {
 
+    // ===== player vs opponent info =====
+
+    playerName.textContent = gameState.player.username;
+    playerRating.textContent = gameState.player.rating;
+
+    opponentName.textContent = gameState.opponent.username;
+    opponentRating.textContent = gameState.opponent.rating;
+
+    // ===== game message =====
+
     gameStatus.textContent = gameState.message;
     submitButton.disabled = gameState.status === "judging" || gameState.status === "finished";
+
+    // ===== submission list innerHTML =====
 
     submissionList.innerHTML = "";
 
@@ -154,7 +176,26 @@ function finishGame(result) {
         gameState.message = "정답입니다! 승리! (+20)";
     }
 
+    localStorage.setItem("player",JSON.stringify(gameState.player));
+    saveGameRecord(result,20);
     renderGame();
+
+    sessionStorage.removeItem("match");
+}
+
+function saveGameRecord(result, ratingChange) {
+    const record = {
+        opponent: gameState.opponent.username,
+        result: result,
+        ratingChange: ratingChange,
+        elapsedTime: gameState.elapsedTime
+    };
+
+    const records = JSON.parse(localStorage.getItem("records")) || [];
+
+    records.push(record);
+
+    localStorage.setItem("records", JSON.stringify(records));
 }
 
 
@@ -176,3 +217,4 @@ submissionList.addEventListener("click", function (event) {
 startGame();
 
 console.log(gameState);
+

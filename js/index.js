@@ -1,24 +1,9 @@
-const records = [
-    {
-        opponent: "DFS_Master",
-        result: "WIN",
-        ratingChange: 18
-    },
-    {
-        opponent: "GraphKing",
-        result: "LOSS",
-        ratingChange: -15
-    },
-    {
-        opponent: "DP_God",
-        result: "WIN",
-        ratingChange: 21
-    }
-];
+const records = JSON.parse(localStorage.getItem("records")) || [];
+const recentRecords = records.slice(-5).reverse();
 
 const recordContainer = document.querySelector("#records-container");
 
-records.forEach( function (record) {
+recentRecords.forEach( function (record) {
     const arti = document.createElement("article");
     arti.className = "match-record";
 
@@ -30,9 +15,51 @@ records.forEach( function (record) {
 
     arti.innerHTML = `
         <span>VS ${record.opponent}</span>
-        <span class="${record.result === "WIN" ? "win" : "loss"}">${record.result}</span>
+        <span class="${record.result === "win" ? "win" : "loss"}">${record.result.toUpperCase()}</span>
         <span>${ratingText}</span>
     `;
 
     recordContainer.append(arti);
 });
+
+function renderLogin(player) {
+    if (player) {
+        loginStatus.textContent = `${player.username} / Rating ${player.rating}`;
+    }
+    else {
+        loginStatus.textContent = "로그인되지 않음";
+    }
+}
+
+
+const loginUsername = document.querySelector("#login-username");
+const loginPassword = document.querySelector("#login-password");
+const loginForm = document.querySelector("#login-form");
+const logoutButton = document.querySelector("#logout-button");
+const loginStatus = document.querySelector("#login-status");
+
+loginForm.addEventListener("submit", function () {
+    event.preventDefault();
+
+    const player = {
+        username: loginUsername.value,
+        rating: 1500
+    };
+
+    localStorage.setItem("player", JSON.stringify(player));
+
+    renderLogin(player);
+});
+
+logoutButton.addEventListener("click", function() {
+    localStorage.removeItem("player");
+    localStorage.removeItem("records");
+
+    renderLogin(null);
+});
+
+const savedPlayer = JSON.parse(localStorage.getItem("player"));
+
+renderLogin(savedPlayer);
+
+console.log(savedPlayer);
