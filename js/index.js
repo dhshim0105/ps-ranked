@@ -43,7 +43,8 @@ loginForm.addEventListener("submit", function () {
 
     const player = {
         username: loginUsername.value,
-        rating: 1500
+        rating: 1500,
+        solvedProblems: []
     };
 
     localStorage.setItem("player", JSON.stringify(player));
