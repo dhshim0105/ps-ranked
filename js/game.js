@@ -1,95 +1,6 @@
 // ===== problems =====
 
-const problems = [
-    {
-        id: 1,
-        title: "두 수의 합",
-        difficulty: "Bronze",
-        tags: ["implementation"],
-        description: "두 정수 A와 B가 주어질 때 A+B를 출력하세요.",
-        input: "첫째 줄에 A와 B가 주어진다.",
-        output: "A+B를 출력한다.",
-        examples: [
-            {
-                input: "1 2",
-                output: "3"
-            },
-            {
-                input: "14 25",
-                output: "39"
-            }
-
-        ]
-    } ,
-
-    {
-        id: 2,
-        title: "최댓값 찾기",
-        difficulty: "Bronze",
-        tags: ["implementation", "array"],
-        description: "정수 배열에서 가장 큰 값을 출력하세요.",
-        input: "첫째 줄에 N, 둘째 줄에 N개의 정수가 주어진다.",
-        output: "가장 큰 정수를 출력한다.",
-        examples: [
-            {
-                input: "5\n1 7 3 4 2",
-                output: "7"
-            }
-        ]
-    },
-
-    {
-        id: 3,
-        title: "격자 최단 거리",
-        difficulty: "Silver",
-        tags: ["graph", "bfs"],
-        description: "격자에서 시작점부터 도착점까지의 최단 거리를 구하세요.",
-        input: "격자의 크기와 격자 정보가 주어진다.",
-        output: "최단 거리를 출력한다.",
-        examples: [
-            {
-                input: "3 3\n0 0 0\n1 1 0\n0 0 0",
-                output: "4"
-            }
-        ]
-    },
-
-    {
-        id: 4,
-        title: "동전 선택",
-        difficulty: "Silver",
-        tags: ["greedy"],
-        description: "주어진 동전을 이용해 목표 금액을 만드는 최소 동전 수를 구하세요.",
-        input: "동전 정보와 목표 금액이 주어진다.",
-        output: "필요한 최소 동전 수를 출력한다.",
-        examples: [
-            {
-                input: "3 4200\n1000 500 100",
-                output: "6"
-            }
-        ]
-    },
-
-    {
-        id: 5,
-        title: "트리 거리",
-        difficulty: "Gold",
-        tags: ["tree", "graph"],
-        description: "트리에서 두 정점 사이의 거리를 구하세요.",
-        input: "트리 정보와 두 정점이 주어진다.",
-        output: "두 정점 사이의 거리를 출력한다.",
-        examples: [
-            {
-                input: "예제 입력",
-                output: "예제 출력"
-            }
-        ]
-    }
-
-];
-
-
-
+let problems = [];
 
 // ===== storage =====
 
@@ -138,6 +49,18 @@ const examplesContainer = document.querySelector("#examples-container")
 let timerId = null;
 
 // ===== Functions =====
+
+async function loadProblems() {
+    const response = await fetch("data/problems.json");
+
+    if (!response.ok) {
+        throw new Error("문제 데이터를 불러오지 못했습니다.");
+    }
+    
+    const data = await response.json();
+
+    problems = data;
+}
 
 function startTimer() {
     timerId = setInterval(function () {
@@ -277,30 +200,31 @@ function renderGame() {
 
     // ===== problem =====
 
-    problemTitle.textContent = gameState.problem.title;
-    problemDifficulty.textContent = gameState.problem.difficulty;
-    problemDescription.textContent = gameState.problem.description;
-    problemTags.textContent = "#" + gameState.problem.tags.join(" #");
-    problemInput.textContent = gameState.problem.input;
-    problemOutput.textContent = gameState.problem.output;
-    examplesContainer.innerHTML = "";
+    if (gameState.problem) {
+        problemTitle.textContent = gameState.problem.title;
+        problemDifficulty.textContent = gameState.problem.difficulty;
+        problemDescription.textContent = gameState.problem.description;
+        problemTags.textContent = "#" + gameState.problem.tags.join(" #");
+        problemInput.textContent = gameState.problem.input;
+        problemOutput.textContent = gameState.problem.output;
+        examplesContainer.innerHTML = "";
 
-    gameState.problem.examples.forEach(function (example, index) {
-        const exampleDiv = document.createElement("div");
+        gameState.problem.examples.forEach(function (example, index) {
+            const exampleDiv = document.createElement("div");
 
-        exampleDiv.innerHTML =`
-            <h4>예제 ${index+1}</h4>
+            exampleDiv.innerHTML =`
+                <h4>예제 ${index+1}</h4>
 
-            <p>입력</p>
-            <pre>${example.input}</pre>
+                <p>입력</p>
+                <pre>${example.input}</pre>
 
-            <p>출력</p>
-            <pre>${example.output}</pre>           
-        `;
+                <p>출력</p>
+                <pre>${example.output}</pre>           
+            `;
 
-        examplesContainer.append(exampleDiv);
-    })
-    
+            examplesContainer.append(exampleDiv);
+        })
+    }    
 
     // ===== submission list innerHTML =====
 
@@ -357,6 +281,27 @@ function saveGameRecord(result, ratingChange) {
     localStorage.setItem("records", JSON.stringify(records));
 }
 
+async function init() {
+    gameState.message = "문제를 불러오는 중..."
+    renderGame();
+
+    try {
+
+        await loadProblems();
+        startGame();
+
+    } catch (error) {
+
+        console.log(error);
+
+        gameState.status = "finished";
+        gameState.message = "문제를 불러오지 못했습니다.";
+
+        renderGame();
+    }
+
+}
+
 
 // ===== Events =====
 
@@ -373,7 +318,5 @@ submissionList.addEventListener("click", function (event) {
 
 // ===== Init =====
 
-startGame();
-
-console.log(gameState);
+init();
 
