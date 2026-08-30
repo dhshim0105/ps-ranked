@@ -25,25 +25,25 @@
             
             <div class="player-card">
 
-                <p>닉네임: mastershim</p>
+                <span id="profile-username"></span>
 
                 <div class="profile-stats">
 
                     <div class="stat-card card">
                         <h3>티어</h3>
-                        <p><span class="tier">Diamond 5</span></p>
+                        <p><span id="profile-tier" class="tier">-</span></p>
                     </div>
                     <div class="stat-card card">
                         <h3>레이팅</h3> 
-                        <p><span class="rating">1900</span></p>
+                        <p><span id="profile-rating" class="rating">-</span></p>
                     </div>
                     <div class="stat-card card">
                         <h3>승률</h3>
-                        <p>57.1%</p>
+                        <p id="profile-win-rate"></p>
                     </div>
                     <div class="stat-card card">
                         <h3>총 경기 수</h3>
-                        <p>42전 24승 18패</p>
+                        <p id="profile-record"></p>
                     </div>
 
                 </div>
@@ -52,24 +52,7 @@
 
             <div class="recent-match">
                 <h3>최근 경기</h3>
-                <article class="match-record">
-                    <span>문제 #103</span>
-                    <span>algorithmKing1</span>
-                    <span class="win">WIN</span>
-                    <span>+21</span>
-                </article>
-                <article class="match-record">
-                    <span>문제 #207</span>
-                    <span>algorithmKing2</span>
-                    <span class="loss">LOSS</span>
-                    <span>-18</span>
-                </article>
-                <article class="match-record">
-                    <span>문제 #315</span>
-                    <span>algorithmKing3</span>
-                    <span class="win">WIN</span>
-                    <span>+17</span>
-                </article>
+                <div id="recent-match-list"></div>
             </div>
         </section>
     </main>

@@ -1,0 +1,32 @@
+[
+    {
+        "username": "DFS_Master",
+        "rating": 1580,
+        "solvedProblems": [1, 3]
+    },
+    {
+        "username": "BFS_Lover",
+        "rating": 1450,
+        "solvedProblems": [2]
+    },
+    {
+        "username": "DP_Master",
+        "rating": 1720,
+        "solvedProblems": [1, 2, 4]
+    },
+    {
+        "username": "GreedyKing",
+        "rating": 1510,
+        "solvedProblems": [4]
+    },
+    {
+        "username": "TreeGod",
+        "rating": 1890,
+        "solvedProblems": [3, 5]
+    },
+    {
+        "username": "BronzeSlayer",
+        "rating": 1320,
+        "solvedProblems": []
+    }
+]

@@ -1,7 +1,3 @@
-// ===== problems =====
-
-let problems = [];
-
 // ===== storage =====
 
 const savedMatch = JSON.parse(sessionStorage.getItem("match"));
@@ -9,18 +5,7 @@ const savedPlayer = JSON.parse(localStorage.getItem("player"));
 
 // ===== State / Data =====
 
-const gameState = {
-    player: savedPlayer,
-    opponent: savedMatch.opponent,
-
-    problem: null,
-    elapsedTime: 0,
-    submissions: [],
-    status: "playing",
-    message: "문제를 풀어주세요.",
-    winner: null
-
-};
+let gameState = null; 
 
 // ===== DOM =====
 
@@ -49,19 +34,6 @@ const examplesContainer = document.querySelector("#examples-container")
 let timerId = null;
 
 // ===== Functions =====
-
-async function loadProblems() {
-    const response = await fetch("data/problems.json");
-
-    if (!response.ok) {
-        throw new Error("문제 데이터를 불러오지 못했습니다.");
-    }
-    
-    const data = await response.json();
-
-    problems = data;
-}
-
 function startTimer() {
     timerId = setInterval(function () {
         gameState.elapsedTime++;
@@ -77,68 +49,15 @@ function formatTime(time) {
     return `${minutes}:${seconds}`;
 }
 
-function getDifficultyByRating(rating) {
-    if (rating < 1400) { return "Bronze"; }
-    if (rating < 1700) { return "Silver"; }
-    return "Gold";
-}
-
-function getRandomProblem(candidates) {
-    if (candidates.length === 0) { return null; }
-    const randomIndex = Math.floor(Math.random() * candidates.length);
-    return candidates[randomIndex];
-}
-
-function selectRankedProblem() {
-
-    const averageRating = (gameState.player.rating + gameState.opponent.rating) / 2;
-    const difficulty = getDifficultyByRating(averageRating);
-    let candidates = problems.filter(function (problem) {
-        return problem.difficulty === difficulty && !gameState.player.solvedProblems.includes(problem.id) && !gameState.opponent.solvedProblems.includes(problem.id);
-    });
-
-    if (candidates.length === 0) {
-        candidates = problems.filter(function (problem) {
-            return problem.difficulty === difficulty;
-        });
-    }
-
-    return getRandomProblem(candidates);
-}
-
-function selectNormalProblem() {
-
-    let difficulty = savedMatch.difficulty;
-
-    if (difficulty === "auto") {
-        const averageRating = (gameState.player.rating + gameState.opponent.rating) / 2;
-        difficulty = getDifficultyByRating(averageRating);
-    }
-
-    let candidates = problems.filter(function (problem) {
-        return problem.difficulty === difficulty && !gameState.player.solvedProblems.includes(problem.id) && !gameState.opponent.solvedProblems.includes(problem.id);
-    });
-
-    if (candidates.length === 0) {
-        candidates = problems.filter(function (problem) { return problem.difficulty === difficulty; });
-    }
-
-    return getRandomProblem(candidates);
-}
-
 function startGame() {
     gameState.status = "playing";
     gameState.message = "문제를 풀어주세요.";
     gameState.elapsedTime = 0;
     gameState.submissions = [];
     gameState.winner = null;
-    if (savedMatch.mode === "ranked") { gameState.problem = selectRankedProblem(); }
-    else { gameState.problem = selectNormalProblem(); }
 
     renderGame();
-    startTimer();
-
-    
+    startTimer(); 
 }
 
 function submitAnswer() {
@@ -200,16 +119,16 @@ function renderGame() {
 
     // ===== problem =====
 
-    if (gameState.problem) {
-        problemTitle.textContent = gameState.problem.title;
-        problemDifficulty.textContent = gameState.problem.difficulty;
-        problemDescription.textContent = gameState.problem.description;
-        problemTags.textContent = "#" + gameState.problem.tags.join(" #");
-        problemInput.textContent = gameState.problem.input;
-        problemOutput.textContent = gameState.problem.output;
+    if (savedMatch.problem) {
+        problemTitle.textContent = savedMatch.problem.title;
+        problemDifficulty.textContent = savedMatch.problem.difficulty;
+        problemDescription.textContent = savedMatch.problem.description;
+        problemTags.textContent = "#" + savedMatch.problem.tags.join(" #");
+        problemInput.textContent = savedMatch.problem.input;
+        problemOutput.textContent = savedMatch.problem.output;
         examplesContainer.innerHTML = "";
 
-        gameState.problem.examples.forEach(function (example, index) {
+        savedMatch.problem.examples.forEach(function (example, index) {
             const exampleDiv = document.createElement("div");
 
             exampleDiv.innerHTML =`
@@ -249,27 +168,35 @@ function finishGame(result) {
     gameState.status = "finished";
     clearInterval(timerId);
 
-    if (result === "win") {
-        gameState.winner = "player";
-        gameState.player.rating += 20;
-        gameState.message = "정답입니다! 승리! (+20)";
+    let ratingChange = 0;
 
-        if (!gameState.player.solvedProblems.includes(gameState.problem.id)) {
-            gameState.player.solvedProblems.push(gameState.problem.id);
+    if (result === "win") {
+        ratingChange = 20;
+
+        gameState.winner = "player";
+        gameState.player.rating += ratingChange;
+        gameState.player.wins++;
+        gameState.message = `정답입니다! 승리! (+${ratingChange})`;
+
+        if (!gameState.player.solvedProblems.includes(savedMatch.problem.id)) {
+            gameState.player.solvedProblems.push(savedMatch.problem.id);
         }
     }
 
     localStorage.setItem("player",JSON.stringify(gameState.player));
-    saveGameRecord(result,20);
+    saveGameRecord(result, ratingChange);
     renderGame();
 
     sessionStorage.removeItem("match");
 }
 
 function saveGameRecord(result, ratingChange) {
+
     const record = {
         opponent: gameState.opponent.username,
-        result: result,
+        problemId: savedMatch.problem.id,
+        problemTitle: savedMatch.problem.title,
+        result: result.toUpperCase(),
         ratingChange: ratingChange,
         elapsedTime: gameState.elapsedTime
     };
@@ -281,25 +208,31 @@ function saveGameRecord(result, ratingChange) {
     localStorage.setItem("records", JSON.stringify(records));
 }
 
-async function init() {
-    gameState.message = "문제를 불러오는 중..."
-    renderGame();
-
-    try {
-
-        await loadProblems();
-        startGame();
-
-    } catch (error) {
-
-        console.log(error);
-
-        gameState.status = "finished";
-        gameState.message = "문제를 불러오지 못했습니다.";
-
-        renderGame();
+function init() {
+    if (!savedPlayer) {
+        sessionStorage.setItem("redirectMessage", "로그인이 필요합니다.");
+        window.location.replace("index.html");
+        return;
+    }
+    if (!savedMatch) {
+        sessionStorage.setItem("redirectMessage", "먼저 매칭을 진행해주세요.");
+        window.location.replace("match.html");
+        return;
     }
 
+    gameState = {
+    player: savedPlayer,
+    opponent: savedMatch.opponent,
+
+    elapsedTime: 0,
+    submissions: [],
+    status: "playing",
+    message: "문제를 풀어주세요.",
+    winner: null
+
+    };
+
+    startGame();
 }
 
 

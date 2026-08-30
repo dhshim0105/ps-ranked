@@ -1,8 +1,66 @@
-const records = JSON.parse(localStorage.getItem("records")) || [];
-const recentRecords = records.slice(-5).reverse();
+// ===== Dom =====
 
+const loginUsername = document.querySelector("#login-username");
+const loginPassword = document.querySelector("#login-password");
+const loginForm = document.querySelector("#login-form");
+const logoutButton = document.querySelector("#logout-button");
+const loginStatus = document.querySelector("#login-status");
 const recordContainer = document.querySelector("#records-container");
 
+// ===== Storage =====
+
+const records = JSON.parse(localStorage.getItem("records")) || [];
+const redirectMessage = sessionStorage.getItem("redirectMessage");
+if (redirectMessage) {
+    alert(redirectMessage);
+    sessionStorage.removeItem("redirectMessage");
+}
+
+// ===== Values =====
+// ===== Data =====
+// ===== State =====
+
+// ===== Events =====
+
+loginForm.addEventListener("submit", function () {
+    event.preventDefault();
+
+    const player = {
+        username: loginUsername.value,
+        rating: 1500,
+        wins: 0,
+        losses: 0,
+        solvedProblems: []
+    };
+
+    localStorage.setItem("player", JSON.stringify(player));
+
+    renderLogin(player);
+});
+
+logoutButton.addEventListener("click", function() {
+    localStorage.removeItem("player");
+    localStorage.removeItem("records");
+
+    renderLogin(null);
+});
+
+// ===== Functions =====
+
+// ===== Render =====
+
+function renderLogin(player) {
+    if (player) {
+        loginStatus.textContent = `${player.username} / Rating ${player.rating}`;
+    }
+    else {
+        loginStatus.textContent = "로그인되지 않음";
+    }
+}
+
+// ===== Init =====
+
+const recentRecords = records.slice(-5).reverse();
 recentRecords.forEach( function (record) {
     const arti = document.createElement("article");
     arti.className = "match-record";
@@ -22,45 +80,7 @@ recentRecords.forEach( function (record) {
     recordContainer.append(arti);
 });
 
-function renderLogin(player) {
-    if (player) {
-        loginStatus.textContent = `${player.username} / Rating ${player.rating}`;
-    }
-    else {
-        loginStatus.textContent = "로그인되지 않음";
-    }
-}
-
-
-const loginUsername = document.querySelector("#login-username");
-const loginPassword = document.querySelector("#login-password");
-const loginForm = document.querySelector("#login-form");
-const logoutButton = document.querySelector("#logout-button");
-const loginStatus = document.querySelector("#login-status");
-
-loginForm.addEventListener("submit", function () {
-    event.preventDefault();
-
-    const player = {
-        username: loginUsername.value,
-        rating: 1500,
-        solvedProblems: []
-    };
-
-    localStorage.setItem("player", JSON.stringify(player));
-
-    renderLogin(player);
-});
-
-logoutButton.addEventListener("click", function() {
-    localStorage.removeItem("player");
-    localStorage.removeItem("records");
-
-    renderLogin(null);
-});
 
 const savedPlayer = JSON.parse(localStorage.getItem("player"));
 
 renderLogin(savedPlayer);
-
-console.log(savedPlayer);
