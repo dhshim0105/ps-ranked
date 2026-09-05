@@ -9,6 +9,8 @@ matchButton.disabled = true;
 
 // ===== Values =====
 
+const API_URL = "http://localhost:3000";
+
 
 // ===== Data =====
 
@@ -75,7 +77,9 @@ matchButton.addEventListener("click", function () {
 // ===== Functions =====
 
 async function loadPlayers() {
-    const response = await fetch("data/players.json");
+    const response = await fetch(
+        `${API_URL}/api/players`
+    );
 
     if (!response.ok) {
         throw new Error("플레이어 데이터를 불러오지 못했습니다.")
@@ -85,7 +89,9 @@ async function loadPlayers() {
 }
 
 async function loadProblems() {
-    const response = await fetch("data/problems.json");
+    const response = await fetch(
+        `${API_URL}/api/problems`
+    );
 
     if (!response.ok) {
         throw new Error("문제 데이터를 불러오지 못했습니다.");

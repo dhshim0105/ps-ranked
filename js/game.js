@@ -5,7 +5,7 @@ const savedPlayer = JSON.parse(localStorage.getItem("player"));
 
 // ===== State / Data =====
 
-let gameState = null; 
+let gameState = null;
 
 // ===== DOM =====
 
@@ -184,7 +184,8 @@ function finishGame(result) {
     }
 
     localStorage.setItem("player",JSON.stringify(gameState.player));
-    saveGameRecord(result, ratingChange);
+    const record = saveGameRecord(result, ratingChange);
+    sendRecordToServer(record);
     renderGame();
 
     sessionStorage.removeItem("match");
@@ -193,6 +194,7 @@ function finishGame(result) {
 function saveGameRecord(result, ratingChange) {
 
     const record = {
+        player: gameState.player.username,
         opponent: gameState.opponent.username,
         problemId: savedMatch.problem.id,
         problemTitle: savedMatch.problem.title,
@@ -206,6 +208,26 @@ function saveGameRecord(result, ratingChange) {
     records.push(record);
 
     localStorage.setItem("records", JSON.stringify(records));
+
+    return record;
+}
+
+async function sendRecordToServer(record) {
+    const response = await fetch("http://localhost:3000/api/records", 
+        {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(record)
+        }
+    );    
+
+    if (!response.ok) {
+        throw new Error("전적 저장에 실패했습니다.");
+    }
+
+    return await response.json();
 }
 
 function init() {
