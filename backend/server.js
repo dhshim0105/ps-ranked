@@ -283,6 +283,39 @@ app.get("/api/problems/:id", function (req, res) {
 // ===== Match Api =====
 // 매칭 시작, 매칭 상태 확인 등 매칭 관련 요청을 처리합니다.
 
+app.get("/api/match", function (req, res) {
+    const rating = Number(req.query.rating);
+    const username = req.query.username;
+    if (Number.isNaN(rating) || !username ) {
+        res.status(400).json({
+            message: "올바른 플레이어 정보가 필요합니다."
+        });
+        return;
+    }
+    
+
+    const candidates = players.filter(function (player) {
+        return (
+            player.username !== username &&
+            rating - 100 <= player.rating &&
+            player.rating <= rating + 100
+        );
+    });
+
+    if (candidates.length === 0) {
+        res.status(404).json({
+            message: "매칭 가능한 상대가 없습니다."
+        });
+        return;
+    }
+
+    const randomIndex = Math.floor(Math.random() * candidates.length);
+
+    const opponent = candidates[randomIndex];
+
+    res.json(opponent);
+});
+
 
 // ===== Game Api =====
 // 게임 시작, 제출, 승패 처리 등 게임 진행 관련 요청을 처리합니다.

@@ -1,5 +1,7 @@
 // ===== DOM =====
 
+//const { start } = require("node:repl");
+
 const matchButton = document.querySelector("#match-button");
 const matchStatus = document.querySelector("#match-status");
 const difficultySelect = document.querySelector("#difficulty-select");
@@ -32,45 +34,7 @@ if (redirectMessage) {
 // ===== Events =====
 
 matchButton.addEventListener("click", function () {
-    matchStatus.textContent = "매칭 잡는 중...";
-    matchButton.disabled = true;
-
-    const selectedMode = document.querySelector("input[name='game-mode']:checked");
-    const selectedOpponent = getRandomPlayer();
-    const selectedDifficulty = selectedMode.value === "ranked" ? "auto" : difficultySelect.value;
-    let selectedProblem;
-
-    if (!selectedOpponent) {
-        matchStatus.textContent = "매칭 가능한 상대가 없습니다.";
-        matchButton.disabled = false;
-        return;
-    }
-
-    if (selectedMode.value === "ranked") { selectedProblem = selectRankedProblem(savedPlayer,selectedOpponent); }
-    else { selectedProblem = selectNormalProblem(savedPlayer, selectedOpponent, selectedDifficulty)}
-
-    if (!selectedProblem) {
-        matchStatus.textContent = "선택 가능한 문제가 없습니다."
-        matchButton.disabled = false;
-        return;
-    }
-
-    const match = {
-        mode: selectedMode.value,
-        difficulty: difficultySelect.value,
-        opponent: selectedOpponent,
-        problem: selectedProblem
-    };
-
-    sessionStorage.setItem("match",JSON.stringify(match));
-
-    setTimeout(function () {
-        matchStatus.textContent = "상대를 찾았습니다!";
-    }, 2000);
-
-    setTimeout(function () {
-        window.location.href = "game.html";
-    }, 3000);
+    startMatching();
 });
 
 
@@ -102,26 +66,16 @@ async function loadProblems() {
     problems = data;
 }
 
-function findMatchCandidates() {
-    return players.filter(function (player) {
-        return (
-            player.username !== savedPlayer.username &&
-            savedPlayer.rating - 100 <= player.rating &&
-            player.rating <= savedPlayer.rating + 100
-        );
-    });
-}
-
-function getRandomPlayer() {
-    const candidates = findMatchCandidates();
+async function loadOpponent() {
+    const response = await fetch(
+        `${API_URL}/api/match?rating=${savedPlayer.rating}&username=${savedPlayer.username}`
+    );
     
-    if (candidates.length === 0) {
-        return null;
+    if (!response.ok) {
+        throw new Error("매칭 가능한 상대를 찾지 못했습니다.");
     }
 
-    const randomIndex = Math.floor(Math.random() * candidates.length);
-
-    return candidates[randomIndex];
+    return await response.json();
 }
 
 function getDifficultyByRating(rating) {
@@ -171,6 +125,47 @@ function selectNormalProblem(player, opponent, difficulty) {
     return getRandomProblem(candidates);
 }
 
+async function startMatching() {
+    matchStatus.textContent = "매칭 잡는 중...";
+    matchButton.disabled = true;
+    const selectedMode = document.querySelector("input[name='game-mode']:checked");
+    const selectedDifficulty = selectedMode.value === "ranked" ? "auto" : difficultySelect.value;
+    let selectedProblem;
+
+    try {
+        const opponent = await loadOpponent();
+        matchStatus.textContent = "상대를 찾았습니다!";
+
+        if (selectedMode.value === "ranked") { selectedProblem = selectRankedProblem(savedPlayer, opponent); }
+        else { selectedProblem = selectNormalProblem(savedPlayer, opponent, selectedDifficulty)}
+
+        if (!selectedProblem) {
+            matchStatus.textContent = "선택 가능한 문제가 없습니다."
+            matchButton.disabled = false;
+            return;
+        }
+
+        const match = {
+            mode: selectedMode.value,
+            difficulty: selectedDifficulty,
+            opponent: opponent,
+            problem: selectedProblem
+        };
+
+        sessionStorage.setItem("match",JSON.stringify(match));
+
+        setTimeout(function () {
+            window.location.href = "game.html";
+        }, 2000);
+    } catch(error) {
+        console.log(error);
+
+        matchStatus.textContent = "매칭 가능한 상대를 찾지 못했습니다.";
+
+        matchButton.disabled = false;
+    }
+}
+
 async function init() {
     if (!savedPlayer) {
         sessionStorage.setItem("redirectMessage", "로그인이 필요합니다.");
@@ -181,7 +176,7 @@ async function init() {
     try {
         await loadPlayers();
         await loadProblems();
-
+        
         matchButton.disabled = false;
     } catch (error) {
         console.log(error);
