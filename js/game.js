@@ -32,6 +32,7 @@ const examplesContainer = document.querySelector("#examples-container")
 // ===== Variables =====
 
 let timerId = null;
+const API_URL = "http://localhost:3000";
 
 // ===== Functions =====
 function startTimer() {
@@ -213,7 +214,8 @@ function saveGameRecord(result, ratingChange) {
 }
 
 async function sendRecordToServer(record) {
-    const response = await fetch("http://localhost:3000/api/records", 
+    const response = await fetch(
+        `${API_URL}/api/records`, 
         {
             method: "POST",
             headers: {
